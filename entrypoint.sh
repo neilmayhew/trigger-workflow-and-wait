@@ -125,6 +125,8 @@ trigger_workflow() {
 
   OLD_RUNS=$(get_workflow_runs "$SINCE")
 
+  echo "OLD_RUNS:$OLD_RUNS" >&2
+
   echo >&2 "Triggering workflow:"
   echo >&2 "  workflows/${INPUT_WORKFLOW_FILE_NAME}/dispatches"
   echo >&2 "  {\"ref\":\"${ref}\",\"inputs\":${client_payload}}"
@@ -138,6 +140,7 @@ trigger_workflow() {
     echo >&2 "Sleeping for ${wait_interval} seconds"
     sleep "$wait_interval"
     NEW_RUNS=$(get_workflow_runs "$SINCE")
+    echo "NEW_RUNS:$NEW_RUNS" >&2
   done
 
   # Return new run ids
