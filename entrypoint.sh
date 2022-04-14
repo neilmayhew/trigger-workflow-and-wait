@@ -138,6 +138,7 @@ trigger_workflow() {
     echo >&2 "Sleeping for ${wait_interval} seconds"
     sleep "$wait_interval"
     NEW_RUNS=$(get_workflow_runs "$SINCE")
+    [ "$(date +%s)" -lt $((START_TIME + 120)) ] || break # Two-minute time limit
   done
 
   # Return new run ids
